@@ -1,0 +1,11 @@
+{
+  // Alibaba Cloud ESA Pages configuration
+  // https://help.aliyun.com/zh/edge-security-acceleration/esa/user-guide/build-pages
+  "name": "uncad",
+  "installCommand": "npm install",
+  "buildCommand": "npm run build",
+  "assets": {
+    "directory": "./out",
+    "notFoundStrategy": "404Page"
+  }
+}

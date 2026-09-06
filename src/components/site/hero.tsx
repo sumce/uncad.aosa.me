@@ -20,11 +20,11 @@ export function Hero() {
       <HeroParallax />
 
       <HeroIntro>
-        <div className="relative mx-auto max-w-4xl px-6 text-center">
+        <div className="relative mx-auto max-w-5xl px-6 text-center">
           <h1
             data-hero-line
             style={{ opacity: 0 }}
-            className="text-balance text-5xl font-medium leading-[1.08] tracking-tight text-foreground sm:text-7xl"
+            className="text-balance text-5xl font-medium leading-[1.08] tracking-tight text-foreground sm:text-6xl lg:text-7xl"
           >
             画图时间最快压缩至
             <span className="font-mono"> 1 </span>分钟

@@ -32,11 +32,28 @@ export function BrandIntro() {
     const ctx = canvas?.getContext("2d");
     const content = document.getElementById("introContent");
     const text = document.getElementById("introText");
-    if (!canvas || !ctx || !content || !text) return;
+    if (!canvas || !ctx || !content || !text) {
+      forceDone();
+      return;
+    }
+
+    // hard failsafe: never keep the site covered for more than 8s
+    const failsafe = setTimeout(() => forceDone(), 8000);
 
     const letters = [...text.querySelectorAll<HTMLElement>(".intro-letter")];
     const timers: number[] = [];
     const timer = (fn: () => void, ms: number) => timers.push(window.setTimeout(fn, ms));
+
+    function forceDone() {
+      if (fadingRef.current) return;
+      fadingRef.current = true;
+      try {
+        sessionStorage.setItem("brand-intro-played", "1");
+      } catch {}
+      setDone(true);
+      document.body.style.overflow = "";
+      setTimeout(() => setGone(true), 700);
+    }
 
     const st = {
       running: false,
@@ -191,11 +208,12 @@ export function BrandIntro() {
       try {
         sessionStorage.setItem("brand-intro-played", "1");
       } catch {}
+      // let the wordmark linger briefly, then reveal the site
       setTimeout(() => {
         setDone(true);
         document.body.style.overflow = "";
-        setTimeout(() => setGone(true), 650);
-      }, 2200);
+        setTimeout(() => setGone(true), 700);
+      }, 1400);
     }
 
     function handoff() {
@@ -253,11 +271,16 @@ export function BrandIntro() {
     const onClick = () => finish();
     canvas.addEventListener("click", onClick);
 
-    start();
+    try {
+      start();
+    } catch {
+      forceDone();
+    }
 
     return () => {
       st.running = false;
       cancelAnimationFrame(raf);
+      clearTimeout(failsafe);
       timers.forEach(clearTimeout);
       window.removeEventListener("pointermove", onMove);
       document.removeEventListener("mouseleave", onLeave);

@@ -52,12 +52,32 @@ export function BrandIntro() {
     function startIntro() {
       const canvas = document.getElementById("introCanvas") as HTMLCanvasElement;
       const ctx = canvas?.getContext("2d");
-      const content = document.getElementById("introContent");
-      const text = document.getElementById("introText");
+      const content = document.getElementById("introContent") as HTMLElement;
+      const text = document.getElementById("introText") as HTMLElement;
       const svg = document.getElementById("introLogo") as HTMLElement;
       if (!canvas || !ctx || !content || !text || !svg) {
         forceDone();
         return;
+      }
+
+      function layout() {
+        st.W = innerWidth;
+        st.H = innerHeight;
+        const dpr = Math.min(devicePixelRatio || 1, 2);
+        canvas.width = st.W * dpr;
+        canvas.height = st.H * dpr;
+        canvas.style.width = st.W + "px";
+        canvas.style.height = st.H + "px";
+        ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
+        st.logoH = Math.min(st.W, st.H) * 0.18;
+        st.logoW = st.logoH * (LOGO_W / LOGO_H);
+        // place the vector layer with the SAME rect the particle sampler uses
+        content.style.left = (st.W - st.logoW) / 2 + "px";
+        content.style.top = (st.H - st.logoH) / 2 + "px";
+        content.style.width = st.logoW + "px";
+        content.style.height = st.logoH + "px";
+        svg.style.width = "100%";
+        svg.style.height = "100%";
       }
 
       // hard failsafe: never keep the site covered for more than 8s
@@ -82,22 +102,6 @@ export function BrandIntro() {
       logoW: 0,
       logoH: 0,
     };
-
-    function layout() {
-      st.W = innerWidth;
-      st.H = innerHeight;
-      const dpr = Math.min(devicePixelRatio || 1, 2);
-      canvas.width = st.W * dpr;
-      canvas.height = st.H * dpr;
-      canvas.style.width = st.W + "px";
-      canvas.style.height = st.H + "px";
-      ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
-      st.logoH = Math.min(st.W, st.H) * 0.18;
-      st.logoW = st.logoH * (LOGO_W / LOGO_H);
-      // keep the vector SVG exactly the same size as the particle target
-      svg.style.width = st.logoW + "px";
-      svg.style.height = st.logoH + "px";
-    }
 
     function computeShift() {
       const textW = text!.offsetWidth;
@@ -234,11 +238,14 @@ export function BrandIntro() {
     function handoff() {
       // vector logo first, particles cleared away immediately (no double image)
       content!.classList.add("intro-active");
-      canvas.classList.add("intro-hidden");
+      // ?intro=freeze keeps the particle layer visible for alignment debugging
+      if (new URLSearchParams(location.search).get("intro") !== "freeze") {
+        canvas.classList.add("intro-hidden");
+      }
       timer(() => {
         letters.forEach((el, i) => (el.style.transitionDelay = `${0.1 + i * 0.07}s`));
         // keep the vertical -50% centering, only shift horizontally
-        content!.style.transform = `translateX(calc(-50% - ${computeShift()}px)) translateY(-50%)`;
+        content!.style.transform = `translateX(${-computeShift()}px)`;
         content!.classList.add("intro-show-text");
         timer(() => letters.forEach((el) => (el.style.transitionDelay = "0s")), 1400);
       }, 450);
@@ -323,8 +330,7 @@ export function BrandIntro() {
       <canvas id="introCanvas" className="absolute inset-0 transition-opacity duration-500" />
       <div
         id="introContent"
-        className="absolute left-1/2 top-1/2 flex items-center opacity-0 transition-[opacity,transform] duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]"
-        style={{ transform: "translate(-50%, -50%)" }}
+        className="absolute flex items-center opacity-0 transition-[opacity,transform] duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]"
       >
         <svg id="introLogo" viewBox="0 0 1109 919" className="block" style={{ width: 195, height: "auto" }}>
           <path fill="#0a0a0a" d={SVG_PATH} />

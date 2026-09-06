@@ -3,7 +3,7 @@ import { Check, Minus, Download } from "lucide-react";
 import { Navbar } from "@/components/site/navbar";
 import { Footer } from "@/components/site/footer";
 import { SectionHeading } from "@/components/site/section-heading";
-import { Reveal } from "@/components/reveal";
+import { Reveal, RevealGroup } from "@/components/reveal";
 import { ContactDialog } from "@/components/site/contact-dialog";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";

@@ -14,48 +14,62 @@ const SVG_PATH = `M299.4 6.5 C354.6 6.2 409.8 6.4 465 6.4 471.6 6.5 478.3 5.8 48
 export function BrandIntro() {
   const [done, setDone] = useState(true);
   const [gone, setGone] = useState(true);
+  const [mounted, setMounted] = useState(false);
   const fadingRef = useRef(false);
+  const cleanupFnsRef = useRef<(() => void)[]>([]);
 
+  // Phase 1: decide whether to play, then mount the overlay
   useEffect(() => {
-    let played = false;
-    try {
-      played = sessionStorage.getItem("brand-intro-played") === "1";
-    } catch {}
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (played || reduced) return;
-
+    if (reduced) return;
     setDone(false);
     setGone(false);
-    document.body.style.overflow = "hidden";
+    setMounted(true);
+  }, []);
 
-    const canvas = document.getElementById("introCanvas") as HTMLCanvasElement;
-    const ctx = canvas?.getContext("2d");
-    const content = document.getElementById("introContent");
-    const text = document.getElementById("introText");
-    if (!canvas || !ctx || !content || !text) {
-      forceDone();
-      return;
-    }
+  // Phase 2: overlay is now in the DOM — start the animation next frame
+  useEffect(() => {
+    if (!mounted) return;
+    let cancelled = false;
 
-    // hard failsafe: never keep the site covered for more than 8s
-    const failsafe = setTimeout(() => forceDone(), 8000);
-
-    const letters = [...text.querySelectorAll<HTMLElement>(".intro-letter")];
-    const timers: number[] = [];
-    const timer = (fn: () => void, ms: number) => timers.push(window.setTimeout(fn, ms));
+    const raf0 = requestAnimationFrame(() => {
+      if (cancelled) return;
+      try {
+        startIntro();
+      } catch {
+        forceDone();
+      }
+    });
 
     function forceDone() {
       if (fadingRef.current) return;
       fadingRef.current = true;
-      try {
-        sessionStorage.setItem("brand-intro-played", "1");
-      } catch {}
       setDone(true);
       document.body.style.overflow = "";
       setTimeout(() => setGone(true), 700);
     }
 
-    const st = {
+    function startIntro() {
+      const canvas = document.getElementById("introCanvas") as HTMLCanvasElement;
+      const ctx = canvas?.getContext("2d");
+      const content = document.getElementById("introContent");
+      const text = document.getElementById("introText");
+      if (!canvas || !ctx || !content || !text) {
+        forceDone();
+        return;
+      }
+
+      // hard failsafe: never keep the site covered for more than 8s
+      const cleanupFns = cleanupFnsRef.current;
+      const failsafe = setTimeout(() => forceDone(), 8000);
+      cleanupFns.push(() => clearTimeout(failsafe));
+
+      const letters = [...text.querySelectorAll<HTMLElement>(".intro-letter")];
+      const timers: number[] = [];
+      const timer = (fn: () => void, ms: number) => timers.push(window.setTimeout(fn, ms));
+      cleanupFns.push(() => timers.forEach(clearTimeout));
+
+      const st = {
       running: false,
       landed: false,
       particles: [] as Particle[],
@@ -205,9 +219,6 @@ export function BrandIntro() {
       st.running = false;
       cancelAnimationFrame(raf);
       timers.forEach(clearTimeout);
-      try {
-        sessionStorage.setItem("brand-intro-played", "1");
-      } catch {}
       // let the wordmark linger briefly, then reveal the site
       setTimeout(() => {
         setDone(true);
@@ -276,19 +287,15 @@ export function BrandIntro() {
     } catch {
       forceDone();
     }
+    }
 
     return () => {
-      st.running = false;
-      cancelAnimationFrame(raf);
-      clearTimeout(failsafe);
-      timers.forEach(clearTimeout);
-      window.removeEventListener("pointermove", onMove);
-      document.removeEventListener("mouseleave", onLeave);
-      canvas.removeEventListener("click", onClick);
-      document.body.style.overflow = "";
+      cancelled = true;
+      cancelAnimationFrame(raf0);
+      cleanupFnsRef.current.forEach((fn) => fn());
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [mounted]);
 
   if (gone) return null;
 

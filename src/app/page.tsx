@@ -1,5 +1,6 @@
 ﻿import { Navbar } from "@/components/site/navbar";
 import { ScrollProgress } from "@/components/site/scroll-progress";
+import { BrandIntro } from "@/components/site/brand-intro";
 import { Hero } from "@/components/site/hero";
 import { Features } from "@/components/site/features";
 import { Workflow } from "@/components/site/workflow";
@@ -16,6 +17,7 @@ import { Footer } from "@/components/site/footer";
 export default function Home() {
   return (
     <div className="flex-1">
+      <BrandIntro />
       <ScrollProgress />
       <Navbar />
       <main>

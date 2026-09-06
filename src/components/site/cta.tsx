@@ -38,6 +38,10 @@ export function Cta() {
             <p className="relative mt-5 text-xs text-muted">
               支持 Windows 10 及以上 · 仅适配 AutoCAD 2022 ·{" "}
               <span className="text-foreground">联系 UNSIAO.Ltd 免费体验 72 小时</span>
+              {" · "}
+              <a href="/pricing" className="underline underline-offset-4 hover:text-foreground">
+                查看套餐
+              </a>
             </p>
             <div className="relative mt-8 flex flex-wrap items-center justify-center gap-3">
               <a href="https://www.unsiao.com" target="_blank" rel="noreferrer">

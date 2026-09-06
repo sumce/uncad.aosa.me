@@ -12,6 +12,7 @@ const links = [
   { href: "/#workflow", label: "工作流" },
   { href: "/commands", label: "命令概述" },
   { href: "/stats", label: "统计图" },
+  { href: "/pricing", label: "套餐" },
   { href: "/#faq", label: "常见问题" },
 ];
 

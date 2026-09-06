@@ -54,7 +54,8 @@ export function BrandIntro() {
       const ctx = canvas?.getContext("2d");
       const content = document.getElementById("introContent");
       const text = document.getElementById("introText");
-      if (!canvas || !ctx || !content || !text) {
+      const svg = document.getElementById("introLogo") as HTMLElement;
+      if (!canvas || !ctx || !content || !text || !svg) {
         forceDone();
         return;
       }
@@ -93,6 +94,9 @@ export function BrandIntro() {
       ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
       st.logoH = Math.min(st.W, st.H) * 0.18;
       st.logoW = st.logoH * (LOGO_W / LOGO_H);
+      // keep the vector SVG exactly the same size as the particle target
+      svg.style.width = st.logoW + "px";
+      svg.style.height = st.logoH + "px";
     }
 
     function computeShift() {
@@ -233,7 +237,8 @@ export function BrandIntro() {
       canvas.classList.add("intro-hidden");
       timer(() => {
         letters.forEach((el, i) => (el.style.transitionDelay = `${0.1 + i * 0.07}s`));
-        content!.style.transform = `translateX(${-computeShift()}px)`;
+        // keep the vertical -50% centering, only shift horizontally
+        content!.style.transform = `translateX(calc(-50% - ${computeShift()}px)) translateY(-50%)`;
         content!.classList.add("intro-show-text");
         timer(() => letters.forEach((el) => (el.style.transitionDelay = "0s")), 1400);
       }, 450);
@@ -318,9 +323,10 @@ export function BrandIntro() {
       <canvas id="introCanvas" className="absolute inset-0 transition-opacity duration-500" />
       <div
         id="introContent"
-        className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center opacity-0 transition-[opacity,transform] duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]"
+        className="absolute left-1/2 top-1/2 flex items-center opacity-0 transition-[opacity,transform] duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]"
+        style={{ transform: "translate(-50%, -50%)" }}
       >
-        <svg viewBox="0 0 1109 919" className="block" style={{ width: "min(28vw, 210px)", height: "auto" }}>
+        <svg id="introLogo" viewBox="0 0 1109 919" className="block" style={{ width: 195, height: "auto" }}>
           <path fill="#0a0a0a" d={SVG_PATH} />
         </svg>
         <div

@@ -1,6 +1,10 @@
+import { Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/reveal";
 import { ContactDialog } from "@/components/site/contact-dialog";
+
+const DOWNLOAD_URL =
+  "https://cloud.aosa.me/d/storage/0/0/unsiaoapps/uncad/UNCAD-Pro-v2.4.2.0.zip";
 
 export function Cta() {
   return (
@@ -24,10 +28,24 @@ export function Cta() {
             </p>
             <div className="relative mt-10 flex flex-wrap items-center justify-center gap-3">
               <ContactDialog>
-            <Button size="lg">联系 UNSIAO.Ltd 获取授权</Button>
-          </ContactDialog>
+                <Button size="lg">联系 UNSIAO.Ltd 获取授权</Button>
+              </ContactDialog>
+              <a href={DOWNLOAD_URL} download>
+                <Button size="lg" variant="outline">
+                  <Download /> 下载 v2.4.2 安装包
+                </Button>
+              </a>
+            </div>
+            <p className="relative mt-5 text-xs text-muted">
+              支持 Windows 10 及以上 · 仅适配 AutoCAD 2022（.NET Framework 4.8 / x64） ·
+              在线授权
+            </p>
+            <p className="relative mt-1 text-xs text-muted">
+              已有授权码？直接下载安装，输入即可使用。
+            </p>
+            <div className="relative mt-8 flex flex-wrap items-center justify-center gap-3">
               <a href="https://www.unsiao.com" target="_blank" rel="noreferrer">
-                <Button size="lg" variant="ghost">
+                <Button size="sm" variant="ghost">
                   访问 www.unsiao.com ↗
                 </Button>
               </a>

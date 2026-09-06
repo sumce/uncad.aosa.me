@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<title>UNCAD Pro 2.4.2 — 版本更新海报</title>
+<link rel="stylesheet" href="poster-base.css" />
+</head>
+<body>
+<div class="poster">
+
+  <div class="header">
+    <div class="brand">
+      <img src="unsiao.svg" alt="UNSIAO" />
+      <span class="name">UNSIAO Work™</span>
+      <span class="div">|</span>
+      <span class="name">UNCAD</span>
+    </div>
+    <div class="ribbon mono">2026-09-06 发布 · 在线授权</div>
+  </div>
+
+  <div class="hero">
+    <h1>UNCAD Pro <span class="mono" style="letter-spacing:-0.02em;">v2.4.2</span><br /><span class="grad">大图批量操作，快了一大截</span></h1>
+    <p class="sub">
+      批量命令共用一个 CAD 读取事务与块定义缓存，
+      <b>U1U / XLAYOUT / XSTS / U1S / U1DWG / Xmerge</b> 在大图上的等待时间大幅缩短。
+      更新后首次打开 CAD 自动弹窗告诉你更新了什么。
+    </p>
+    <div class="pills">
+      <span class="pill mono">U1U · XLAYOUT · XSTS · U1S · U1DWG · Xmerge · U1LX</span>
+    </div>
+  </div>
+
+  <div class="sec-title">批量性能</div>
+  <div class="grid2" style="padding-top: 3.5mm;">
+    <div class="card">
+      <span class="cmd mono">U1U / XLAYOUT / XSTS / U1S / U1DWG / Xmerge</span>
+      <h3>共用一个读取事务</h3>
+      <p>多图框身份读取不再每个图框重复扫描同一块定义 —— 块定义与属性默认值按事务缓存（CadBlockDefinitionReader），大图批量操作明显更快。</p>
+    </div>
+    <div class="card">
+      <span class="cmd mono">U1U</span>
+      <h3>整批一次读取</h3>
+      <p>批量更新的配置/统计设置只读取一次；Ruanguan 长度与既有 BOQ 电缆型号在同一读取事务内处理。整批预检、单事务写入与失败回滚保持不变。</p>
+    </div>
+    <div class="card">
+      <span class="cmd mono">U1LX</span>
+      <h3>密集图纸标注更快</h3>
+      <p>快速标注的标签匹配改为按线序字典查找，密集图纸上的扫描速度提升。</p>
+    </div>
+    <div class="card">
+      <span class="cmd mono">frame</span>
+      <h3>旧版图框兼容</h3>
+      <p>图框识别支持 frame_20260812 / frame / xframe，边框支持闭合多段线表示 —— 旧图纸无需改造即可使用。</p>
+    </div>
+  </div>
+
+  <div class="sec-title">版本更新日志</div>
+  <div class="grid3" style="padding-top: 3.5mm;">
+    <div class="item">
+      <h4><span class="mono">01</span>更新自动弹窗</h4>
+      <p>更新到新版本后首次打开 CAD，自动弹窗显示更新内容；已展示版本会记录，不会重复打扰。</p>
+    </div>
+    <div class="item">
+      <h4><span class="mono">02</span>首次安装精简</h4>
+      <p>全新安装只显示最新版本的说明，历史版本在 U1A 关于窗中随时可查。</p>
+    </div>
+    <div class="item">
+      <h4><span class="mono">03</span>基准测试更安全</h4>
+      <p>UNCAD_PERFORMANCE_SELFTEST 在复制的临时 DWG 上运行，不再修改用户原始图纸。</p>
+    </div>
+  </div>
+
+  <div class="sec-title">升级说明</div>
+  <div class="grid3" style="padding-top: 3.5mm;">
+    <div class="item">
+      <div class="bignum">2.4.2</div>
+      <div class="lbl">统一版本号 2.4.2 / 2.4.2.0，新版本专属 ProductCode，原 UpgradeCode 保持不变 —— 直接覆盖安装即可。</div>
+    </div>
+    <div class="item">
+      <div class="bignum">在线授权</div>
+      <div class="lbl">本版本仅生成 UNCAD Pro 在线授权包，原授权码继续有效。</div>
+    </div>
+    <div class="item">
+      <div class="bignum">0<span> 改动</span></div>
+      <div class="lbl">安装机制不变：Bundle 装好即自动加载，覆盖前自动备份、失败自动回滚。</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="left">
+      <div class="cta">升级到 2.4.2，大图批量不再等待</div>
+      <div class="sub">
+        UNSIAO.Ltd 出品 · 面向 AutoCAD 电气/设备设计团队 · www.unsiao.com<br />
+        执行 U1A 查看当前版本；U1HELP 查看全部命令帮助。
+      </div>
+      <div class="url mono">uncad.aosa.me</div>
+    </div>
+    <div class="qr-box">
+      <div id="qrcode"></div>
+      <span class="cap">扫码下载 / 查看更新</span>
+    </div>
+  </div>
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+  new QRCode(document.getElementById("qrcode"), {
+    text: "https://uncad.aosa.me", width: 240, height: 240,
+    correctLevel: QRCode.CorrectLevel.M, colorDark: "#0d0d0d", colorLight: "#ffffff"
+  });
+</script>
+</body>
+</html>

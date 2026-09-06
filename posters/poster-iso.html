@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<title>UNCAD Pro — ISO 绘图海报</title>
+<link rel="stylesheet" href="poster-base.css" />
+</head>
+<body>
+<div class="poster">
+
+  <div class="header">
+    <div class="brand">
+      <img src="unsiao.svg" alt="UNSIAO" />
+      <span class="name">UNSIAO Work™</span>
+      <span class="div">|</span>
+      <span class="name">UNCAD</span>
+    </div>
+    <div class="ribbon mono">AutoCAD <b>2022</b> · .NET 4.8 · x64 · v2.4.2</div>
+  </div>
+
+  <div class="hero">
+    <h1>更快地绘制 ISO 图<br /><span class="grad">画线、标距、拱桥，一气呵成</span></h1>
+    <p class="sub">
+      东南等轴侧 3D 正交绘图习惯，逐段真实毫米距离 ——
+      <b>从画线到标注全程在 AutoCAD 内部完成</b>，取代大量手工画线标字。
+    </p>
+    <div class="pills">
+      <span class="pill mono">U1L · U1LX · U1R · U1Q1/2/4</span>
+      <span class="pill">扫码右下角二维码即可获取授权</span>
+    </div>
+  </div>
+
+  <div class="sec-title">绘图与标注辅助</div>
+  <div class="grid3">
+    <div class="card">
+      <span class="cmd mono">U1L / UNL</span>
+      <h3>带标注线段</h3>
+      <p>像 L 命令一样连续点击端点，每段自动生成长度文字；回车结束、U 撤销上一段、Esc 全部清除。</p>
+    </div>
+    <div class="card">
+      <span class="cmd mono">U1LX / UNLX</span>
+      <h3>快速标注距离</h3>
+      <p>点选一段线路，沿连通路线从点击端逐段填写真实毫米距离，回车写入并自动跳到下一段。</p>
+    </div>
+    <div class="card">
+      <span class="cmd mono">U1R / UNR</span>
+      <h3>拱桥开洞</h3>
+      <p>在线段交叉位置生成拱桥式开洞，两侧直线与半圆弧合并为一条 Polyline，直径在 U1SET 统一设置。</p>
+    </div>
+  </div>
+
+  <div class="sec-title">桥架与线管标注</div>
+  <div class="grid2" style="padding-top: 3.5mm;">
+    <div class="card">
+      <span class="cmd mono">U1Q1 / U1Q2 / U1Q4</span>
+      <h3>100 / 200 / 400 mm 桥架标注</h3>
+      <p>选中桥架曲线执行对应命令，标注内容统一为「桥架型号 + 总长度 mm」，口径统一可追溯。</p>
+    </div>
+    <div class="card">
+      <span class="cmd mono">U1C</span>
+      <h3>线管标注</h3>
+      <p>为选中曲线生成固定 2000mm 占位的线管平行标注；预先选中软管动态块时可同步写入软管型号与长度。</p>
+    </div>
+  </div>
+
+  <div class="sec-title">为什么更快</div>
+  <div class="grid3" style="padding-top: 3.5mm;">
+    <div class="item">
+      <div class="bignum">2000<span>mm</span></div>
+      <div class="lbl">非法长度设置自动回退，标注占位统一</div>
+    </div>
+    <div class="item">
+      <div class="bignum">1<span>条 Polyline</span></div>
+      <div class="lbl">拱桥开洞后两侧直线与半圆弧自动合并</div>
+    </div>
+    <div class="item">
+      <div class="bignum">4<span>种规格</span></div>
+      <div class="lbl">软管、线管、100/200/400 桥架一键标注</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="left">
+      <div class="cta">少画线、少标字，ISO 图交给插件</div>
+      <div class="sub">
+        UNSIAO.Ltd 出品 · 面向 AutoCAD 电气/设备设计团队 · www.unsiao.com<br />
+        传统命令 UNL / UNLX / UNR / UNQ1/2/4 同步兼容，键盘习惯不变。
+      </div>
+      <div class="url mono">uncad.aosa.me</div>
+    </div>
+    <div class="qr-box">
+      <div id="qrcode"></div>
+      <span class="cap">扫码访问官网</span>
+    </div>
+  </div>
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+  new QRCode(document.getElementById("qrcode"), {
+    text: "https://uncad.aosa.me", width: 240, height: 240,
+    correctLevel: QRCode.CorrectLevel.M, colorDark: "#0d0d0d", colorLight: "#ffffff"
+  });
+</script>
+</body>
+</html>

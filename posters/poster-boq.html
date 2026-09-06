@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<title>UNCAD Pro — 清单与 BOQ 海报</title>
+<link rel="stylesheet" href="poster-base.css" />
+</head>
+<body>
+<div class="poster">
+
+  <div class="header">
+    <div class="brand">
+      <img src="unsiao.svg" alt="UNSIAO" />
+      <span class="name">UNSIAO Work™</span>
+      <span class="div">|</span>
+      <span class="name">UNCAD</span>
+    </div>
+    <div class="ribbon mono">AutoCAD <b>2022</b> · .NET 4.8 · x64 · v2.4.2</div>
+  </div>
+
+  <div class="hero">
+    <h1>机台 Excel<br /><span class="grad">一键写进 CAD 图框，BOQ 秒出</span></h1>
+    <p class="sub">
+      <b>识别 → 匹配 → 回填 → 汇总 → 输出</b>，全部在 AutoCAD 内部完成。
+      以固定清单为唯一准绳：未匹配项集中询问，绝不静默猜写、绝不生成「无来源」材料。
+    </p>
+    <div class="pills">
+      <span class="pill mono">U1F · U1U · U1S · U1SET</span>
+      <span class="pill">扫码右下角二维码即可获取授权</span>
+    </div>
+  </div>
+
+  <div class="sec-title">清单工作流</div>
+  <div class="grid2" style="padding-top: 3.5mm;">
+    <div class="card">
+      <span class="cmd mono">U1F</span>
+      <h3>清单生成</h3>
+      <p>框选空图框执行 U1F：字段、容量与固定清单预检 →「填充确认」窗口逐行核对 → 单一 CAD 事务写入 → 自动输出 [BOQ]机台ID.xlsx。</p>
+    </div>
+    <div class="card">
+      <span class="cmd mono">U1U</span>
+      <h3>清单更新</h3>
+      <p>多图框批量更新：自动读取机台 ID 与设备名、统一预检、一个事务写入，任一失败整批回滚；重复更新按「机台 ID + 设备」覆盖。</p>
+    </div>
+    <div class="card">
+      <span class="cmd mono">U1S</span>
+      <h3>当前图框提交</h3>
+      <p>只读命令：不修改 CAD、不读机台 Excel，直接把现有图框的清单项、数量与米数独立重复提交到 BOQ，适合单独补交。</p>
+    </div>
+    <div class="card">
+      <span class="cmd mono">U1SET</span>
+      <h3>配置中心</h3>
+      <p>机台工作簿由用户选择、点击「刷新」才解析进本地 SQLite 快照 —— 源文件改动不会偷偷影响图纸，所见即所得、结果可复现。</p>
+    </div>
+  </div>
+
+  <div class="sec-title">BOQ 输出</div>
+  <div class="grid3" style="padding-top: 3.5mm;">
+    <div class="item">
+      <div class="bignum">1<span>文件/机台</span></div>
+      <div class="lbl">[BOQ]机台ID.xlsx 按机台独立输出，不同机台不混写</div>
+    </div>
+    <div class="item">
+      <div class="bignum">L<span>列起逐设备</span></div>
+      <div class="lbl">每设备占一列，E 列 SUM 公式汇总，保留模板特征、报价列与样式</div>
+    </div>
+    <div class="item">
+      <div class="bignum">0<span>静默写入</span></div>
+      <div class="lbl">软管直径由电缆型号对照表推导，长度取自动态块，口径可追溯</div>
+    </div>
+  </div>
+
+  <div class="sec-title">可靠性设计</div>
+  <div class="grid3" style="padding-top: 3.5mm;">
+    <div class="item">
+      <h4><span class="mono">01</span>整批事务</h4>
+      <p>写图、导出、汇总都有明确预检与事务边界，出错不影响既有图纸。</p>
+    </div>
+    <div class="item">
+      <h4><span class="mono">02</span>变更留痕</h4>
+      <p>frameinfo_json 保存机台、设备、上下游信息与变更历史。</p>
+    </div>
+    <div class="item">
+      <h4><span class="mono">03</span>严格回填</h4>
+      <p>空数据保持为空、模糊项目先询问，用户每一步都看得见结果。</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="left">
+      <div class="cta">今天就让清单不再逐行手抄</div>
+      <div class="sub">
+        UNSIAO.Ltd 出品 · 面向 AutoCAD 电气/设备设计团队 · www.unsiao.com<br />
+        清单秒出 · BOQ 秒出 · 画图时间最快压缩至 1 分钟，效率提高 75%。
+      </div>
+      <div class="url mono">uncad.aosa.me</div>
+    </div>
+    <div class="qr-box">
+      <div id="qrcode"></div>
+      <span class="cap">扫码访问官网</span>
+    </div>
+  </div>
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+  new QRCode(document.getElementById("qrcode"), {
+    text: "https://uncad.aosa.me", width: 240, height: 240,
+    correctLevel: QRCode.CorrectLevel.M, colorDark: "#0d0d0d", colorLight: "#ffffff"
+  });
+</script>
+</body>
+</html>

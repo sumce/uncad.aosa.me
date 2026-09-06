@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<title>UNCAD Pro — A4 宣传海报</title>
+<style>
+  @page { size: A4 portrait; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --ink: #0d0d0d;
+    --muted: #6e6e80;
+    --line: rgba(0,0,0,.08);
+    --card: #f7f7f8;
+  }
+  html, body { background: #e5e5e5; }
+  body {
+    font-family: "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    justify-content: center;
+    padding: 24px 0;
+  }
+  .mono { font-family: "SF Mono", ui-monospace, Consolas, monospace; }
+
+  .poster {
+    width: 210mm;
+    height: 297mm;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 12px 48px rgba(0,0,0,.18);
+  }
+  @media print {
+    body { padding: 0; background: #fff; }
+    .poster { box-shadow: none; }
+  }
+
+  /* ===== header ===== */
+  .header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 9mm 14mm 0;
+  }
+  .brand { display: flex; align-items: center; gap: 3mm; }
+  .brand img { height: 6.5mm; width: auto; }
+  .brand .name { font-size: 10.5pt; font-weight: 600; letter-spacing: -0.01em; }
+  .brand .div { color: #bbb; font-weight: 300; }
+  .ribbon {
+    font-size: 7pt; color: var(--muted);
+    border: 1px solid var(--line); border-radius: 999px; padding: 1.2mm 3.2mm;
+  }
+  .ribbon b { color: var(--ink); font-weight: 600; }
+
+  /* ===== hero ===== */
+  .hero { padding: 9mm 14mm 6mm; }
+  .hero h1 {
+    font-size: 28pt; font-weight: 600; letter-spacing: -0.03em;
+    line-height: 1.14;
+  }
+  .hero h1 .grad {
+    background: linear-gradient(180deg, #0d0d0d 30%, #8a8a93);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero p.sub {
+    margin-top: 4mm; font-size: 9.5pt; line-height: 1.6; color: var(--muted);
+    max-width: 152mm;
+  }
+  .hero p.sub b { color: var(--ink); font-weight: 600; }
+  .pills { display: flex; gap: 2.5mm; margin-top: 5mm; }
+  .pill {
+    font-size: 8pt; font-weight: 500;
+    background: var(--card); color: var(--ink);
+    border: 1px solid var(--line); border-radius: 2mm; padding: 1.8mm 4mm;
+  }
+
+  /* ===== speed strip ===== */
+  .speed {
+    margin: 0 14mm; display: flex; align-items: stretch;
+    border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  }
+  .speed .cell { flex: 1; padding: 4mm 2mm; }
+  .speed .cell + .cell { border-left: 1px solid var(--line); padding-left: 5mm; }
+  .speed .num { font-size: 15pt; font-weight: 600; letter-spacing: -0.02em; }
+  .speed .num em { font-style: normal; font-size: 9pt; color: var(--muted); font-weight: 400; margin-left: 1mm; }
+  .speed .lbl { margin-top: 1mm; font-size: 7pt; color: var(--muted); }
+  .speed .save { color: #0a7d3b; }
+
+  /* ===== sections ===== */
+  .sec-title {
+    padding: 5mm 14mm 0;
+    font-size: 7.5pt; letter-spacing: .22em; text-transform: uppercase; color: var(--muted);
+  }
+  .features { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3.5mm; padding: 3.5mm 14mm 0; }
+  .card {
+    background: var(--card); border-radius: 4mm; padding: 4.2mm;
+  }
+  .card .cmd {
+    display: inline-block; font-size: 6.5pt; color: var(--ink);
+    background: #ececf1; border-radius: 2mm; padding: 0.8mm 2.2mm; margin-bottom: 2.2mm;
+  }
+  .card h3 { font-size: 9.5pt; font-weight: 600; letter-spacing: -0.01em; }
+  .card p { margin-top: 1.5mm; font-size: 7.4pt; line-height: 1.55; color: var(--muted); }
+
+  .iso { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3.5mm; padding: 3.5mm 14mm 0; }
+  .iso .item { border-top: 1px solid var(--line); padding-top: 2.4mm; }
+  .iso h4 { font-size: 8.5pt; font-weight: 600; }
+  .iso h4 .mono { font-size: 7pt; color: var(--muted); font-weight: 400; margin-right: 1.5mm; }
+  .iso p { margin-top: 1mm; font-size: 7.2pt; line-height: 1.5; color: var(--muted); }
+
+  /* ===== commands ===== */
+  .cmds {
+    margin: 3.5mm 14mm 0; background: var(--card); border-radius: 4mm;
+    padding: 4mm 5.5mm; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2mm 5.5mm;
+  }
+  .cmds .c { font-size: 7.2pt; color: var(--muted); white-space: nowrap; }
+  .cmds .c b { color: var(--ink); font-weight: 600; }
+
+  /* ===== footer ===== */
+  .footer {
+    margin-top: auto;
+    background: var(--card);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 5.5mm 14mm;
+  }
+  .footer .left { max-width: 122mm; }
+  .footer .cta { font-size: 12pt; font-weight: 600; letter-spacing: -0.01em; }
+  .footer .sub { margin-top: 1.4mm; font-size: 7.5pt; color: var(--muted); line-height: 1.5; }
+  .footer .url { margin-top: 2mm; font-size: 10pt; font-weight: 600; }
+  .qr-box { display: flex; flex-direction: column; align-items: center; gap: 1.6mm; }
+  #qrcode { width: 23mm; height: 23mm; background: #fff; }
+  #qrcode img, #qrcode canvas { width: 100% !important; height: 100% !important; }
+  .qr-box .cap { font-size: 7pt; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="poster">
+
+  <div class="header">
+    <div class="brand">
+      <img src="unsiao.svg" alt="UNSIAO" onerror="this.src='public/unsiao.svg'" />
+      <span class="name">UNSIAO Work™</span>
+      <span class="div">|</span>
+      <span class="name">UNCAD</span>
+    </div>
+    <div class="ribbon mono">AutoCAD <b>2022</b> · .NET 4.8 · x64 · v2.4.2</div>
+  </div>
+
+  <div class="hero">
+    <h1>画图时间最快压缩至 1 分钟<br /><span class="grad">效率提高 75% · 成本节省 75%</span></h1>
+    <p class="sub">
+      <b>1 人 + 1 插件 ≈ 4 人产能。</b>
+      UNCAD Pro 是面向 AutoCAD 的电气 / 机台图快速填充与统计工具：
+      更快地绘制 ISO 图，机台 Excel 一键写进图框 ——
+      <b>识别 → 匹配 → 回填 → 汇总 → 输出</b> 全部在 AutoCAD 内部完成，
+      固定清单严格匹配、整批事务回滚、绝不静默臆测写入。
+    </p>
+    <div class="pills">
+      <span class="pill">24 个专业命令</span>
+      <span class="pill">整批事务 · 失败回滚</span>
+      <span class="pill">扫码右下角二维码即可获取授权</span>
+    </div>
+  </div>
+
+  <div class="speed">
+    <div class="cell">
+      <div class="num">~4<em>分钟+</em></div>
+      <div class="lbl">传统方式：画图 2 分钟+ 清单 1 分钟+ BOQ 1 分钟+</div>
+    </div>
+    <div class="cell">
+      <div class="num mono">01:06</div>
+      <div class="lbl">UNCAD Pro 全程实测（难度适中图纸）</div>
+    </div>
+    <div class="cell">
+      <div class="num save">-75%</div>
+      <div class="lbl">清单秒出 · BOQ 秒出 · 绘制一个机台更省时间</div>
+    </div>
+  </div>
+
+  <div class="sec-title">核心能力</div>
+  <div class="features">
+    <div class="card">
+      <span class="cmd mono">U1F / U1U / U1S</span>
+      <h3>清单生成与更新</h3>
+      <p>框选图框按固定清单逐行回填设备、电缆、桥架、线管、软管、断路器与插座；未匹配项集中询问，绝不静默猜写。</p>
+    </div>
+    <div class="card">
+      <span class="cmd mono">[BOQ]机台ID.xlsx</span>
+      <h3>自动 BOQ 输出</h3>
+      <p>写图成功即按机台输出工程量清单，多设备逐列汇总、多图框累加，保留模板特征、报价列与公式样式。</p>
+    </div>
+    <div class="card">
+      <span class="cmd mono">XLAYOUT / Xmerge / U1DWG</span>
+      <h3>排版与导出</h3>
+      <p>按机台 ID 分行自动排版、多 DWG 一键合并、按机台分组横向导出独立 DWG，跨图框对象稳定归属。</p>
+    </div>
+  </div>
+
+  <div class="sec-title">更快地绘制 ISO 图</div>
+  <div class="iso">
+    <div class="item">
+      <h4><span class="mono">U1L</span>带标注线段</h4>
+      <p>连续点击端点，每段自动生成长度文字；U 撤销上一段。</p>
+    </div>
+    <div class="item">
+      <h4><span class="mono">U1LX</span>逐段标真实距离</h4>
+      <p>3D 正交视图沿连通线路逐段填写真实毫米距离，回车跳下一段。</p>
+    </div>
+    <div class="item">
+      <h4><span class="mono">U1R / U1Q</span>拱桥与桥架</h4>
+      <p>交叉处一键开拱桥；100 / 200 / 400mm 桥架标注统一口径。</p>
+    </div>
+  </div>
+
+  <div class="sec-title">命令一览（节选）</div>
+  <div class="cmds mono">
+    <span class="c"><b>U1F</b> 清单生成</span>
+    <span class="c"><b>U1U</b> 清单更新</span>
+    <span class="c"><b>U1S</b> 图框提交</span>
+    <span class="c"><b>U1DWG</b> 导出 DWG</span>
+    <span class="c"><b>U1SET</b> 配置中心</span>
+    <span class="c"><b>XLAYOUT</b> 自动排版</span>
+    <span class="c"><b>Xmerge</b> 批量合并</span>
+    <span class="c"><b>XSTS</b> 回路统计</span>
+    <span class="c"><b>U1L</b> 带标注线段</span>
+    <span class="c"><b>U1LX</b> 标注距离</span>
+    <span class="c"><b>U1R</b> 拱桥开洞</span>
+    <span class="c"><b>U1Q1/2/4</b> 桥架标注</span>
+  </div>
+
+  <div class="footer">
+    <div class="left">
+      <div class="cta">今天就让清单不再逐行手抄</div>
+      <div class="sub">
+        UNSIAO.Ltd 出品 · 面向 AutoCAD 电气/设备设计团队 · www.unsiao.com<br />
+        Bundle 机制安装，装好即自动加载；覆盖前自动备份、失败自动回滚；在线授权实时校验。
+      </div>
+      <div class="url mono">uncad.aosa.me</div>
+    </div>
+    <div class="qr-box">
+      <div id="qrcode"></div>
+      <span class="cap">扫码访问官网</span>
+    </div>
+  </div>
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+  new QRCode(document.getElementById("qrcode"), {
+    text: "https://uncad.aosa.me", width: 240, height: 240,
+    correctLevel: QRCode.CorrectLevel.M, colorDark: "#0d0d0d", colorLight: "#ffffff"
+  });
+</script>
+</body>
+</html>

@@ -282,6 +282,11 @@ export function BrandIntro() {
     // click anywhere on the overlay to skip
     const onClick = () => finish();
     content.addEventListener("click", onClick);
+    cleanupFns.push(() => {
+      window.removeEventListener("pointermove", onMove);
+      document.removeEventListener("mouseleave", onLeave);
+      content.removeEventListener("click", onClick);
+    });
 
     try {
       start();
@@ -294,9 +299,6 @@ export function BrandIntro() {
       cancelled = true;
       cancelAnimationFrame(raf0);
       cleanupFnsRef.current.forEach((fn) => fn());
-      window.removeEventListener("pointermove", onMove);
-      document.removeEventListener("mouseleave", onLeave);
-      content.removeEventListener("click", onClick);
       document.body.style.overflow = "";
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps

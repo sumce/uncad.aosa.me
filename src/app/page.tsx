@@ -10,6 +10,7 @@ import { SpeedRun } from "@/components/site/speed-run";
 import { Commands } from "@/components/site/commands";
 import { Principles } from "@/components/site/principles";
 import { Faq } from "@/components/site/faq";
+import { Explore } from "@/components/site/explore";
 import { Deploy } from "@/components/site/deploy";
 import { Cta } from "@/components/site/cta";
 import { Footer } from "@/components/site/footer";
@@ -31,6 +32,7 @@ export default function Home() {
         <Principles />
         <Deploy />
         <Faq />
+        <Explore />
         <Cta />
       </main>
       <Footer />

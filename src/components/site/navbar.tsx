@@ -93,9 +93,9 @@ export function Navbar() {
         </nav>
         <div className="flex items-center gap-2">
           <ThemeToggle />
-          <a href="/commands" className="hidden sm:block">
+          <a href="/download" className="hidden sm:block">
             <Button size="sm" variant="outline">
-              使用文档
+              下载
             </Button>
           </a>
           <a href="#download">

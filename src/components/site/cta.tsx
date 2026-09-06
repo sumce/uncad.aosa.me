@@ -3,8 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/reveal";
 import { ContactDialog } from "@/components/site/contact-dialog";
 
-const DOWNLOAD_URL =
-  "https://cloud.aosa.me/d/storage/0/0/unsiaoapps/uncad/UNCAD-Pro-v2.4.2.0.zip";
+const DOWNLOAD_URL = "/download";
 
 export function Cta() {
   return (
@@ -30,18 +29,15 @@ export function Cta() {
               <ContactDialog>
                 <Button size="lg">联系 UNSIAO.Ltd 获取授权</Button>
               </ContactDialog>
-              <a href={DOWNLOAD_URL} download>
+              <a href="/download">
                 <Button size="lg" variant="outline">
                   <Download /> 下载 v2.4.2 安装包
                 </Button>
               </a>
             </div>
             <p className="relative mt-5 text-xs text-muted">
-              支持 Windows 10 及以上 · 仅适配 AutoCAD 2022（.NET Framework 4.8 / x64） ·
-              在线授权
-            </p>
-            <p className="relative mt-1 text-xs text-muted">
-              已有授权码？直接下载安装，输入即可使用。
+              支持 Windows 10 及以上 · 仅适配 AutoCAD 2022 ·{" "}
+              <span className="text-foreground">联系 UNSIAO.Ltd 免费体验 72 小时</span>
             </p>
             <div className="relative mt-8 flex flex-wrap items-center justify-center gap-3">
               <a href="https://www.unsiao.com" target="_blank" rel="noreferrer">

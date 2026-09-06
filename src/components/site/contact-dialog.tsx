@@ -49,7 +49,15 @@ function Row({
   );
 }
 
-export function ContactDialog({ children }: { children: React.ReactNode }) {
+export function ContactDialog({
+  children,
+  title = "联系 UNSIAO.Ltd 获取授权",
+  description = "输入授权码即可使用，授权状态实时校验。",
+}: {
+  children: React.ReactNode;
+  title?: string;
+  description?: string;
+}) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -61,10 +69,10 @@ export function ContactDialog({ children }: { children: React.ReactNode }) {
           <div className="flex items-start justify-between">
             <div>
               <Dialog.Title className="text-lg font-medium tracking-tight text-foreground">
-                联系 UNSIAO.Ltd 获取授权
+                {title}
               </Dialog.Title>
               <Dialog.Description className="mt-1 text-sm text-muted">
-                输入授权码即可使用，授权状态实时校验。
+                {description}
               </Dialog.Description>
             </div>
             <Dialog.Close asChild>

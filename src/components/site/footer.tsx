@@ -23,6 +23,7 @@ const cols = [
   {
     title: "资源",
     links: [
+      ["下载安装包", "/download"],
       ["命令概述（完整）", "/commands"],
       ["效率统计图", "/stats"],
       ["常见问题", "/#faq"],

@@ -228,8 +228,9 @@ export function BrandIntro() {
     }
 
     function handoff() {
+      // vector logo first, particles cleared away immediately (no double image)
       content!.classList.add("intro-active");
-      timer(() => canvas.classList.add("intro-hidden"), 200);
+      canvas.classList.add("intro-hidden");
       timer(() => {
         letters.forEach((el, i) => (el.style.transitionDelay = `${0.1 + i * 0.07}s`));
         content!.style.transform = `translateX(${-computeShift()}px)`;
@@ -278,9 +279,9 @@ export function BrandIntro() {
     };
     window.addEventListener("pointermove", onMove);
     document.addEventListener("mouseleave", onLeave);
-    // click to skip
+    // click anywhere on the overlay to skip
     const onClick = () => finish();
-    canvas.addEventListener("click", onClick);
+    content.addEventListener("click", onClick);
 
     try {
       start();
@@ -293,6 +294,10 @@ export function BrandIntro() {
       cancelled = true;
       cancelAnimationFrame(raf0);
       cleanupFnsRef.current.forEach((fn) => fn());
+      window.removeEventListener("pointermove", onMove);
+      document.removeEventListener("mouseleave", onLeave);
+      content.removeEventListener("click", onClick);
+      document.body.style.overflow = "";
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mounted]);
@@ -302,7 +307,7 @@ export function BrandIntro() {
   return (
     <div
       aria-hidden
-      className="fixed inset-0 z-[100] bg-white transition-opacity duration-600"
+      className="fixed inset-0 z-[100] bg-white transition-opacity duration-500"
       style={{
         opacity: done ? 0 : 1,
         pointerEvents: done ? "none" : "auto",

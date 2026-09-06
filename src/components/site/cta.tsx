@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/reveal";
+import { ContactDialog } from "@/components/site/contact-dialog";
 
 export function Cta() {
   return (
@@ -22,7 +23,9 @@ export function Cta() {
               覆盖前自动备份、失败自动回滚。
             </p>
             <div className="relative mt-10 flex flex-wrap items-center justify-center gap-3">
-              <Button size="lg">联系 UNSIAO.Ltd 获取授权</Button>
+              <ContactDialog>
+            <Button size="lg">联系 UNSIAO.Ltd 获取授权</Button>
+          </ContactDialog>
               <a href="https://www.unsiao.com" target="_blank" rel="noreferrer">
                 <Button size="lg" variant="ghost">
                   访问 www.unsiao.com ↗
